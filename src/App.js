@@ -1,12 +1,14 @@
 import './styles/App.scss';
 import Navigation from './components/Navigation'
-import CreateForm from './components/CreateForm'
+import SongForm from './components/SongForm'
+import ShowSongs from './components/ShowSongs'
 
 function App() {
   return (
     <>
     <Navigation/>
-    <CreateForm/>
+    <SongForm/>
+    <ShowSongs/>
     
     </>
   );
