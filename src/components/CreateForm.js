@@ -28,6 +28,7 @@ const CreateForm = (props) => {
       <h3>Formulario de Canciones</h3>
       <form onSubmit={handleSubmit}>
         <input
+        
           className="inputsCreate"
           type="text"
           name="nameSong"
@@ -48,7 +49,7 @@ const CreateForm = (props) => {
           className="inputsCreate"
           name="lyricSong"
           placeholder="Write the song letter"
-          rows="5"
+          rows="15"
           onChange={handleInputChange}
           value={values.lyricSong}
         ></textarea>

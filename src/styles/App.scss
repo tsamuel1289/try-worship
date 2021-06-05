@@ -1,2 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 10px
+}
+
 @import 'navigation';
 @import 'createForm';
+@import 'showsongs';
+

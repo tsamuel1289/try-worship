@@ -1,0 +1,39 @@
+.showCard{
+    border: solid transparent;
+    border-width: 1px;
+    background-color: #48C9B0;
+    margin-bottom:10px;
+    padding: 10px;
+    border-radius: 25px;
+
+        .barra{
+            display: flex;
+                justify-content: space-between;
+            
+            .botones{
+                width: 70px;
+                display: flex;
+                justify-content: space-between;
+                
+               
+                button{
+                    font-weight: bolder;
+                    color: red;
+                    width: 20px;
+                    height: 20px;
+                    border-style: none;
+                    background-color: transparent;
+                }
+                #editButton{
+                    color: Blue;
+                }
+            }
+            
+        }
+        
+        pre{
+            color:darkblue;
+           
+            font-family: 'Times New Roman', Times, serif;
+        }
+}
