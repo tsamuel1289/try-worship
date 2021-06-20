@@ -1,36 +1,41 @@
-//HERE I WRITE ALL IS INTO THE FORM FOR CREATE A SONG AND EXPORT DE 'VALUE'
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {db} from '../firebase'
 
 const CreateForm = (props) => {
-
-  console.log(props.currentId)
 
   const initialForm = {
     nameSong: '',
     artistSong: '',
     lyricSong: ''
   }
+
   const [values, setValues] = useState(initialForm)
 
   const handleInputChange = (e) => {
-
     const { name, value } = e.target; //min 35:39
     setValues({ ...values, [name]: value })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    addOrEdit(values)
+    props.addOrEdit(values)
     setValues({ ...initialForm })
   }
 
-  const addOrEdit = async (values) => {
-    await db.collection('songs').doc().set(values)
-    console.log('new task added')
+  const getLinkById = async (id) => {
+    const doc = await db.collection('songs').doc(id).get()
+    setValues({...doc.data()})
   }
-  
+  //   EFFECTS
+  useEffect(() => {
+    if (props.currentId === '') {
+      setValues({...initialForm})
+    } else {
+      console.log('se esta editando')
+      getLinkById(props.currentId)
+    }
+  }, [props.currentId])
+
   return (
     <>
       <h3>Formulario de Canciones</h3>
@@ -61,7 +66,7 @@ const CreateForm = (props) => {
           onChange={handleInputChange}
           value={values.lyricSong}
         ></textarea>
-        <button > Save Song</button>
+        <button > {props.currentId === '' ? 'Save Song' : 'Update Song'}</button>
       </form>
     </>
   );

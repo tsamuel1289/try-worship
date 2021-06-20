@@ -3,10 +3,26 @@ import { db } from '../firebase'
 import CreateForm from './CreateForm'
 
 const ShowSongs = () => {
+    //   STATES
     const [songs, setSongs] = useState([])
-    const [currentId, setCurrentId] = useState('HHHH')
+    const [currentId, setCurrentId] = useState('')
 
-   
+    //    FUNCTIONS
+    const onDeleteSong = async (id) => {
+        if (window.confirm('estas seguro de borrar esta cancion?')) {
+            await db.collection('songs').doc(id).delete()
+        }
+    }
+    
+    const addOrEdit = async (values) => {
+        if (currentId === ''){
+            await db.collection('songs').doc().set(values)
+            alert('new task added')
+        }else{
+            db.collection('songs').doc(currentId).update(values)
+            alert('cancion actualizada')
+        }
+    }
 
     const getSongs = () => { //50:07 get songs from firebase
         db.collection('songs').onSnapshot(
@@ -23,20 +39,13 @@ const ShowSongs = () => {
         )
     }
 
-    useEffect(() => { getSongs() }, [])
+    //   EFFECTS
+    useEffect(
+        getSongs, []
+    )
 
-    const onDeleteSong = async (id) => {
-        if (window.confirm('estas seguro de borrar esta cancion?')) {
-            await db.collection('songs').doc(id).delete()
-        }
-    }
-
-    /*   const onEditSong = (id) => {
-           console.log(`editing song: ${id}`)
-       }
-   */
     return <div>
-        <CreateForm {...{currentId}}/>
+        <CreateForm {...{ currentId, addOrEdit }} />
         <h2>Listado de Canciones</h2>
         {songs.map(song => {
             return (<div className="showCard" key={song.id}>
@@ -44,7 +53,7 @@ const ShowSongs = () => {
                 <div className='barra'>
                     <p><b>{song.nameSong}</b></p>
                     <div className='botones'>
-                        <button id='editButton' onClick={() => setCurrentId(song.id)}>Editar</button>
+                        <button id='editButton' onClick={() => {setCurrentId(song.id);window.scroll({top:0,behavior:'smooth'})}}>Editar</button>
                         <button onClick={() => onDeleteSong(song.id)}>X</button>
                     </div>
                 </div>
