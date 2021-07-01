@@ -14,19 +14,20 @@ const Canciones = () => {
                     (doc) => {
                         docs.push({...doc.data(), id:doc.id})
                     }
-
                 )
                 setShowData(docs)
-
             }
         )
-        
     }
     useEffect(getSongs, [])
-   console.log(showData)
-
+   
     return <div>
-        <h4>hola</h4>
+        <h4>Este es el listado</h4>
+        {showData.map((song)=>{
+            return (<div className='listado' key={song.id}>
+                {song.nameSong} - {song.artistSong} 
+            </div>)
+        })}
        
        
 
